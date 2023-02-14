@@ -2,16 +2,16 @@ package first.teamproject.domain.service;
 
 import first.teamproject.domain.member.Grade;
 import first.teamproject.domain.member.Member;
-import first.teamproject.domain.order.Address;
-import first.teamproject.domain.repository.interfaces.MemberRepository;
+import first.teamproject.domain.order.String;
 import first.teamproject.domain.repository.MemoryMemberRepository;
+import first.teamproject.domain.repository.interfaces.MemberRepository;
 import first.teamproject.domain.service.interfaces.MemberService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 class MemberServiceImplTest {
         MemberService memberService = new MemberServiceImpl();
         MemberRepository repository=new MemoryMemberRepository();
@@ -29,7 +29,7 @@ class MemberServiceImplTest {
                 "memberId",
                 "memberPassword",
                 "memberName",
-                new Address("city","street","zipcode"),
+                "asdasdasdasdas",
                 "email",
                 "101-2131-5135"
         );
@@ -45,7 +45,7 @@ class MemberServiceImplTest {
                 "memberId",
                 "memberPassword",
                 "memberName",
-                new Address("city","street","zipcode"),
+                "asdasdasdasdas",
                 "email",
                 "101-2131-5135"
         );
@@ -66,7 +66,7 @@ class MemberServiceImplTest {
                 "memberId",
                 "memberPassword",
                 "memberName",
-                new Address("city","street","zipcode"),
+                "asdasdasdasdas",
                 "email",
                 "101-2131-5135"
         );
@@ -78,7 +78,7 @@ class MemberServiceImplTest {
                 "updatedId",
                 "updatedPassword",
                 "updatedName",
-                new Address("city2","street2","zipcode2"),
+                "asdasdasdasdas",
                 "updatedEmail",
                 "updated 101-2131-5135");
         memberService.update(member.getMemberNo(),updateMember);
@@ -87,7 +87,7 @@ class MemberServiceImplTest {
         assertThat(member.getMemberId()).isEqualTo("updatedId");
         assertThat(member.getMemberPassword()).isEqualTo("updatedPassword");
         assertThat(member.getMemberName()).isEqualTo("updatedName");
-        assertThat(member.getMemberAddress().getCity()).isEqualTo(new Address("city2","street2","zipcode2").getCity());
+        assertThat(member.getMemberAddress()).isEqualTo("asdasdasdasdas");
         assertThat(member.getMemberEmail()).isEqualTo("updatedEmail");
         assertThat(member.getMemberPhone()).isEqualTo("updated 101-2131-5135");
     }
@@ -100,7 +100,7 @@ class MemberServiceImplTest {
                 "memberId",
                 "memberPassword",
                 "memberName",
-                new Address("city","street","zipcode"),
+                "asdasdasdasdas",
                 "email",
                 "101-2131-5135"
         );
@@ -110,7 +110,7 @@ class MemberServiceImplTest {
                 "updatedId",
                 "updatedPassword",
                 "updatedName",
-                new Address("city","street","zipcode"),
+                "asdasdasdasdas",
                 "updatedEmail",
                 "updated 101-2131-5135");
 

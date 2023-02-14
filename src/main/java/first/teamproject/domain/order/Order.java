@@ -3,7 +3,6 @@ package first.teamproject.domain.order;
 import first.teamproject.domain.member.Member;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,28 +14,27 @@ public class Order {
     private Long orderNo;
     private Member member;
     private List<OrderItem> orderItems = new ArrayList<>();
-    private Delivery delivery;
+    private java.lang.String memberAddress;
     private LocalDateTime orderDate;
     private OrderStatus status;
 
     private Order() {
     }
 
-    public Order(Long orderNo, Member member, Delivery delivery, LocalDateTime orderDate, OrderStatus status) {
-        this.orderNo = orderNo;
+    public Order(Member member, java.lang.String memberAddress, LocalDateTime orderDate, OrderStatus status) {
         this.member = member;
-        this.delivery = delivery;
+        this.memberAddress = memberAddress;
         this.orderDate = orderDate;
         this.status = status;
     }
 
     @Override
-    public String toString() {
+    public java.lang.String toString() {
         return "Order{" +
                 "orderNo=" + orderNo +
                 ", member=" + member +
                 ", orderItems=" + orderItems +
-                ", delivery=" + delivery +
+                ", memberAddress=" + memberAddress +
                 ", orderDate=" + orderDate +
                 ", status=" + status +
                 '}';
@@ -47,10 +45,10 @@ public class Order {
         orderItem.setOrder(this);
     }
 
-    public static Order createOrder(Member member,Delivery delivery,OrderItem...orderItems){
+    public static Order createOrder(Member member, java.lang.String memberAddress, OrderItem...orderItems){
         Order order =new Order();
         order.setMember(member);
-        order.setDelivery(delivery);
+        order.setMemberAddress(memberAddress);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
         }
@@ -63,9 +61,6 @@ public class Order {
      */
     /*주문 취소*/
     public void cancel(){
-        if(delivery.getStatus()==DeliveryStatus.COMP){
-            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
-        }
         this.setStatus(OrderStatus.CANCEL);
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();

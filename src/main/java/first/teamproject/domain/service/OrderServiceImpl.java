@@ -27,18 +27,16 @@ public class OrderServiceImpl implements OrderService {
         Member member = memberRepository.memberFindByNo(memberNo);
         Item item = itemRepository.ItemFindByNo(itemNo);
 
-        //배송정보 생성
-        Delivery delivery = new Delivery();
-        delivery.setAddress(member.getMemberAddress());
-        delivery.setStatus(DeliveryStatus.READY);
 
         //주문상품 생성
 
             OrderItem orderItem = OrderItem.createOrderItem(item,item.getItemPrice(),quantity);
 
 
+
         //주문생성
-        Order order =Order.createOrder(member,delivery,orderItem);
+        Order order =Order.createOrder(member,member.getMemberAddress());
+        order.getOrderItems().add(orderItem);
 
         orderRepository.OrderSave(order);
         log.info("order={}",order);
@@ -46,4 +44,5 @@ public class OrderServiceImpl implements OrderService {
 
         return order.getOrderNo();
     }
+
 }

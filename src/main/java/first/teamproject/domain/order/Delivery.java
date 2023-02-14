@@ -8,6 +8,6 @@ import lombok.Setter;
 public class Delivery {
     private Long deliveryId;
     private Order order;
-    private Address address;
+    private java.lang.String string;
     private DeliveryStatus status;
 }
