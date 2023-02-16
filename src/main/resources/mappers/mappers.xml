@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+    <!--<select id="list" resultType="first.teamproject.domain.member.Member">
+        SELECT * FROM ITEMS
+    </select>
+    <select id="member" resultType="first.teamproject.domain.member.Member">
+        select * from MEMBER where ID=#{ID}
+    </select>-->
+    <insert id="insertMember" useGeneratedKeys="false" keyProperty="MEMBER_NO" keyColumn="MEMBER_NO">
+        insert into MEMBER(MEMBER_NO,MEMBER_ID, MEMBER_PWD, MEMBER_ADDRESS, MEMBER_EMAIL,
+        MEMBER_PHONE,MEMBER_NAME,MEMBER_GRADE) values(#{MEMBER_ID},#{MEMBER_PWD},#{MEMBER_ADDRESS},#{MEMBER_EMAIL},
+        #{MEMBER_PHONE}, #{MEMBER_NAME},#{MEMBER_GRADE})
+    </insert>
+   <!-- <delete id="deleteitem">
+        delete ITEMS where ID=#{ID}
+    </delete>
+    <update id="updateitem">
+        update ITEMS set ITEM_NAME=#{ITEMNAME}, PRICE=#{PRICE}, QUANTITY=#{QUANTITY} where ID=#{ID}
+    </update>-->
+</mapper>

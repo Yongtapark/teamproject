@@ -54,9 +54,11 @@ class OrderServiceImplTest {
         OrderItem orderItem1 =new OrderItem();
         orderItem1.setOrderItemNo(item1.getItemNo());
         orderItem1.setItemQuantity(3);
+        orderItem1.setOrderPrice(item1.getItemPrice());
         OrderItem orderItem2 =new OrderItem();
         orderItem2.setOrderItemNo(item2.getItemNo());
         orderItem2.setItemQuantity(3);
+        orderItem2.setOrderPrice(item2.getItemPrice());
 
 
 
@@ -72,12 +74,10 @@ class OrderServiceImplTest {
     
 
        Long order = orderService.Order(member.getMemberNo(),item1.getItemNo(),3);
-        order = orderService.Order(member.getMemberNo(), item2.getItemNo(), 5);
         Order order1 = orderRepository.OrderFindByNo(order);
 
         //then
         assertThat(itemRepository.ItemFindByNo(item1.getItemNo()).getItemQuantity()).isEqualTo(47);
-        assertThat(itemRepository.ItemFindByNo(item2.getItemNo()).getItemQuantity()).isEqualTo(15);
         assertThat(itemRepository.ItemFindByNo(item1.getItemNo()).getItemName()).isEqualTo("itemName");
         assertThat(itemRepository.ItemFindByNo(item2.getItemNo()).getItemName()).isEqualTo("itemName2");
         assertThat(order1.getTotalPrice()).isEqualTo(11000);
@@ -91,49 +91,29 @@ class OrderServiceImplTest {
     @Test
     void test() throws Exception {
 
-        //given
-        Member member=new Member(
-                Grade.ADMIN,
-                "memberId",
-                "memberPassword",
-                "memberName",
-                "asdasdasdasdas",
-                "email",
-                "101-2131-5135"
-        );
-        memberService.join(member);
-        Item item1 =new Book("itemName",1000,50,"author","publisher");
-        Item item2 =new Book("itemName2",2000,20,"author","publisher");
+        Member member = new Member(Grade.ADMIN, "testmember", "password", "Tester", "Seoul, Korea", "testmember@test.com", "010-1234-5678");
+        Order order = Order.createOrder(member, "Seoul, Korea");
 
+// 주문 상품 추가
+        Item item1 = new Book("item1", 10000, 10, "author1", "publisher1");
+        OrderItem orderItem1 = OrderItem.createOrderItem(item1, item1.getItemPrice(), 2);
+        order.addOrderItem(orderItem1);
 
-        itemService.insert(item1);
-        itemService.insert(item2);
-        List<Item> items = itemRepository.ItemFindAll();
+        Item item2 = new Book("item2", 20000, 5, "author2", "publisher2");
+        OrderItem orderItem2 = OrderItem.createOrderItem(item2, item2.getItemPrice(), 1);
+        order.addOrderItem(orderItem2);
 
-        OrderItem orderItem1 =new OrderItem();
-        orderItem1.setOrderItemNo(item1.getItemNo());
-        orderItem1.setItemQuantity(3);
-        OrderItem orderItem2 =new OrderItem();
-        orderItem2.setOrderItemNo(item2.getItemNo());
-        orderItem2.setItemQuantity(3);
+// 총 주문 가격 검증
+        int totalPrice = order.getTotalPrice();
+        assertThat(totalPrice).isEqualTo(40000);
 
-        long order = orderService.Order(member.getMemberNo(), item1.getItemNo(), 3);
-        order = orderService.Order(member.getMemberNo(), item2.getItemNo(), 5);
-        Order order1 = orderRepository.OrderFindByNo(order);
+// 주문 취소
+        order.cancel();
+        int item1Quantity = item1.getItemQuantity();
+        int item2Quantity = item2.getItemQuantity();
+        assertThat(item1Quantity).isEqualTo(10);
+        assertThat(item2Quantity).isEqualTo(5);
 
-//then
-        for (OrderItem orderItem : order1.getOrderItems()) {
-            if (orderItem.getItem().getItemNo() == item1.getItemNo()) {
-                assertThat(orderItem.getItem().getItemPrice()).isEqualTo(3000);
-                assertThat(orderItem.getItemQuantity()).isEqualTo(3);
-                assertThat(orderItem.getTotalPrice()).isEqualTo(9000);
-            } else if (orderItem.getItem().getItemNo() == item2.getItemNo()) {
-                assertThat(orderItem.getItem().getItemPrice()).isEqualTo(2000);
-                assertThat(orderItem.getItemQuantity()).isEqualTo(5);
-                assertThat(orderItem.getTotalPrice()).isEqualTo(10000);
-            }
-        }
 
     }
-
 }

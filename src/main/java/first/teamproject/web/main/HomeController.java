@@ -1,3 +1,4 @@
+/*
 package first.teamproject.web.main;
 
 import first.teamproject.domain.member.Member;
@@ -11,15 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/itsponge")
 public class HomeController {
-    @GetMapping
+    @GetMapping("/")
     public String main(){
-        return "itsponge/main";
+        return "main";
     }
     @GetMapping("/join")
     String joinGet(){
-        return "itsponge/regist";
+        return "registform";
     }
 
     @PostMapping("/join")
@@ -29,3 +29,4 @@ public class HomeController {
 
 
 }
+*/
