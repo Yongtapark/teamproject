@@ -5,10 +5,13 @@ import first.teamproject.domain.repository.interfaces.MemberRepository;
 import first.teamproject.domain.repository.MemoryMemberRepository;
 import first.teamproject.domain.service.interfaces.MemberService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Slf4j
+@Service
 public class MemberServiceImpl implements MemberService {
-
+    @Autowired
     private MemberRepository memberRepository = new MemoryMemberRepository();
     @Override
     public void join(Member member) {

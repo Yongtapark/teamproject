@@ -2,21 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="member">
-    <!--<select id="list" resultType="first.teamproject.domain.member.Member">
-        SELECT * FROM ITEMS
+
+
+    <select id="selectMember" resultType="MEMBER" >
+        select * from MEMBER where MEMBER_NO=#{member_no}
     </select>
-    <select id="member" resultType="first.teamproject.domain.member.Member">
-        select * from MEMBER where ID=#{ID}
-    </select>-->
-    <insert id="insertMember" useGeneratedKeys="false" keyProperty="MEMBER_NO" keyColumn="MEMBER_NO">
-        insert into MEMBER(MEMBER_NO,MEMBER_ID, MEMBER_PWD, MEMBER_ADDRESS, MEMBER_EMAIL,
-        MEMBER_PHONE,MEMBER_NAME,MEMBER_GRADE) values(#{MEMBER_ID},#{MEMBER_PWD},#{MEMBER_ADDRESS},#{MEMBER_EMAIL},
-        #{MEMBER_PHONE}, #{MEMBER_NAME},#{MEMBER_GRADE})
+
+    <insert id="insertMember" useGeneratedKeys="true" keyProperty="MEMBER_NO" keyColumn="MEMBER_NO">
+        INSERT INTO MEMBER(MEMBER_NO, MEMBER_ID, MEMBER_PWD, MEMBER_ADDRESS, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_NAME, MEMBER_GRADE)
+        VALUES(MEMBER_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, #{member_address}, #{member_email}, #{member_phone}, #{member_name}, #{member_grade})
     </insert>
-   <!-- <delete id="deleteitem">
-        delete ITEMS where ID=#{ID}
+    <update id="updateMember">
+        update MEMBER set MEMBER_PWD=#{member_pwd}, MEMBER_ADDRESS=#{member_address}, MEMBER_EMAIL=#{member_email}, MEMBER_PHONE=#{member_phone} where MEMBER_ID=#{member_id}
+    </update>
+    <delete id="deleteMember">
+        delete MEMBER where MEMBER_NO=#{member_no}
     </delete>
-    <update id="updateitem">
-        update ITEMS set ITEM_NAME=#{ITEMNAME}, PRICE=#{PRICE}, QUANTITY=#{QUANTITY} where ID=#{ID}
-    </update>-->
+
+
+
 </mapper>

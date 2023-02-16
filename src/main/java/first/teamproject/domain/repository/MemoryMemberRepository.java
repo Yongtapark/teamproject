@@ -2,12 +2,13 @@ package first.teamproject.domain.repository;
 
 import first.teamproject.domain.member.Member;
 import first.teamproject.domain.repository.interfaces.MemberRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Repository
 public class MemoryMemberRepository implements MemberRepository {
     private static final Map<Long, Member> store=new HashMap<>();
     private static long sequence=0L;

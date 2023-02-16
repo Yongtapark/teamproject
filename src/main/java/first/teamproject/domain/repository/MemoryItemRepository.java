@@ -2,12 +2,13 @@ package first.teamproject.domain.repository;
 
 import first.teamproject.domain.item.Item;
 import first.teamproject.domain.repository.interfaces.ItemRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Repository
 public class MemoryItemRepository implements ItemRepository {
     private static final Map<Long, Item> store=new HashMap<>();
     private static long sequence=0L;

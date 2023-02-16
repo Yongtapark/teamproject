@@ -1,29 +1,27 @@
-/*
 package first.teamproject.web.item;
 
-import hello.itemservice.domain.item.*;
-import hello.itemservice.domain.item.impl.ItemServiceImpl;
+
+import first.teamproject.domain.service.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller a
-@RequestMapping("/basic/items")
+@Controller
+@RequestMapping("/com.solponge")
 @RequiredArgsConstructor // 초기화 되지 않게 알아서 실행되는 녀석
 public class BasicItemController {
     @Autowired
-    ItemServiceImpl itemService;
+    MemberServiceImpl memberService;
 
-    @GetMapping
+    @GetMapping("/join")
     public String items(Model model) {
-        model.addAttribute("items", itemService.getBoardList());
+        model.addAttribute("member", memberService);
         return "items";
     }
-
-    @GetMapping("/{itemId}")
+    //회원가입
+    /*@GetMapping("")
     public String item(@PathVariable Long itemId, Model model) {
         Item item = itemService.getBoard(itemId);
         System.out.println(itemId);
@@ -62,8 +60,7 @@ public class BasicItemController {
         redirectAttributes.addAttribute("status", "edit");
         System.out.println("호출됨");
         return "redirect:./";
-    }
+    }*/
 }
 
 
-*/
