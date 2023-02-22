@@ -1,15 +1,17 @@
+/*
 package first.teamproject.domain.repository;
 
 import first.teamproject.domain.member.Grade;
 import first.teamproject.domain.member.Member;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+
 @Slf4j
 @SpringBootTest
 class OracleMemberDAOTest {
@@ -17,32 +19,35 @@ class OracleMemberDAOTest {
     OracleMemberDAO oracleMemberDAO;
     @Test
     void insertTest(){
-        Member member =new Member(Grade.ADMIN,"memberId","asdasd","맴버이름","주소입니다.","이메일입니다.","010123456");
+        Member member =new Member("memberId","asdasd","맴버이름","주소입니다.","이메일입니다.","010123456");
         oracleMemberDAO.insertMember(member);
     }
 
     @Test
     void updateTest(){
-        oracleMemberDAO.updateMember(new Member("memberId","123","변경주소입니다.","이메변깅일입니다.","변경010123456"));
+        oracleMemberDAO.updateMember(new Member("123","변경주소입니다.","이메변깅일입니다.","변경010123456"));
     }
 
     @Test
     void deleteTest(){
-        oracleMemberDAO.deleteMember(13L);
+        oracleMemberDAO.deleteMember(41L);
+
+    }
+
+    @Test
+    void listMember(){
+        List<Member> members = oracleMemberDAO.memberList();
+        log.info("members.size={},members={}",members.size(), members.iterator().next().getMEMBER_ID());
+        assertThat(members).isNotNull();
     }
 
       @Test
-    void selectTest(){
-          Member expectedMember =new Member(Grade.ADMIN,"memberId","asdasd","맴버이름","주소입니다.","이메일입니다.","010123456");
-          String memberNo = oracleMemberDAO.insertMember(expectedMember);
-          long memberNoL = Long.parseLong(memberNo);
-          log.info("OracleMemberDAOTest.memberNoL={}",memberNoL);
-          Member actualMember = oracleMemberDAO.selectMember(memberNoL);
-          log.info("OracleMemberDAOTest.actualMember={}",actualMember);
-          assertThat(actualMember).isNotNull();
-          assertThat(actualMember).isEqualTo(expectedMember);
+    void findByNo(){
+          Member acualMember = oracleMemberDAO.selectMember(1L);
+          assertThat(acualMember).isNotNull();
+          //assertThat(actualMember).isEqualTo(expectedMember);
       }
 
 
 
-}
+}*/

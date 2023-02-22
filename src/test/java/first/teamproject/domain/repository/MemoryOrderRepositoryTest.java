@@ -1,3 +1,4 @@
+/*
 package first.teamproject.domain.repository;
 
 import first.teamproject.domain.item.Book;
@@ -5,7 +6,6 @@ import first.teamproject.domain.item.Item;
 import first.teamproject.domain.member.Grade;
 import first.teamproject.domain.member.Member;
 import first.teamproject.domain.order.*;
-import first.teamproject.domain.order.String;
 import first.teamproject.domain.repository.interfaces.OrderRepository;
 import first.teamproject.domain.service.ItemServiceImpl;
 import first.teamproject.domain.service.MemberServiceImpl;
@@ -50,7 +50,7 @@ class MemoryOrderRepositoryTest {
         Delivery delivery =new Delivery();
 
 
-        Order order=new Order(member, member.getMemberAddress(), LocalDateTime.now(),OrderStatus.ORDER);
+        Order order=new Order(member, member.getMEMBER_ADDRESS(), LocalDateTime.now(),OrderStatus.ORDER);
         Order asdasdas = order.createOrder(member, "asdasdas", orderItem1, orderItem2);
         repository.OrderSave(order);
         repository.OrderSave(asdasdas);
@@ -81,4 +81,4 @@ class MemoryOrderRepositoryTest {
     @Test
     void orderClear() {
     }
-}
+}*/

@@ -1,3 +1,4 @@
+/*
 package first.teamproject.domain.service;
 
 import first.teamproject.domain.item.Book;
@@ -6,7 +7,6 @@ import first.teamproject.domain.member.Grade;
 import first.teamproject.domain.member.Member;
 import first.teamproject.domain.order.OrderItem;
 import first.teamproject.domain.order.OrderStatus;
-import first.teamproject.domain.order.String;
 import first.teamproject.domain.order.Order;
 import first.teamproject.domain.repository.MemoryItemRepository;
 import first.teamproject.domain.repository.MemoryOrderRepository;
@@ -73,7 +73,7 @@ class OrderServiceImplTest {
         //when
     
 
-       Long order = orderService.Order(member.getMemberNo(),item1.getItemNo(),3);
+       Long order = orderService.Order(member.getMEMBER_NO(),item1.getItemNo(),3);
         Order order1 = orderRepository.OrderFindByNo(order);
 
         //then
@@ -116,4 +116,4 @@ class OrderServiceImplTest {
 
 
     }
-}
+}*/

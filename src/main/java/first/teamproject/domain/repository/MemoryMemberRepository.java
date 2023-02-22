@@ -8,32 +8,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-@Repository
+//@Repository
 public class MemoryMemberRepository implements MemberRepository {
     private static final Map<Long, Member> store=new HashMap<>();
     private static long sequence=0L;
     @Override
-    public void memberSave(Member member) {
-        member.setMemberNo(sequence++);
-        store.put(member.getMemberNo(),member);
+    public String memberSave(Member member) {
+        member.setMEMBER_NO(sequence++);
+        store.put(member.getMEMBER_NO(),member);
+        return null;
     }
 
     @Override
     public void memberUpdate(Long memberId, Member updateMember) {
         Member findMember = memberFindByNo(memberId);
-        findMember.setMemberGrade(updateMember.getMemberGrade());
-        findMember.setMemberId(updateMember.getMemberId());
-        findMember.setMemberPassword(updateMember.getMemberPassword());
-        findMember.setMemberName(updateMember.getMemberName());
-        findMember.setMemberAddress(updateMember.getMemberAddress());
-        findMember.setMemberEmail(updateMember.getMemberEmail());
-        findMember.setMemberPhone(updateMember.getMemberPhone());
+        findMember.setMEMBER_GRADE(updateMember.getMEMBER_GRADE());
+        findMember.setMEMBER_ID(updateMember.getMEMBER_ID());
+        findMember.setMEMBER_PWD(updateMember.getMEMBER_PWD());
+        findMember.setMEMBER_NAME(updateMember.getMEMBER_NAME());
+        findMember.setMEMBER_ADDRESS(updateMember.getMEMBER_ADDRESS());
+        findMember.setMEMBER_EMAIL(updateMember.getMEMBER_EMAIL());
+        findMember.setMEMBER_PHONE(updateMember.getMEMBER_PHONE());
 
     }
 
     @Override
     public void memberDelete(Member member) {
-        store.remove(member.getMemberNo());
+        store.remove(member.getMEMBER_NO());
     }
 
     @Override

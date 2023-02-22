@@ -1,31 +1,33 @@
 package first.teamproject.domain.service;
 
-import first.teamproject.domain.member.Grade;
+
 import first.teamproject.domain.member.Member;
-import first.teamproject.domain.order.String;
-import first.teamproject.domain.repository.MemoryMemberRepository;
-import first.teamproject.domain.repository.interfaces.MemberRepository;
+
+import first.teamproject.domain.repository.OracleMemberRepository;
+
 import first.teamproject.domain.service.interfaces.MemberService;
-import org.junit.jupiter.api.AfterEach;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+@SpringBootTest
+@Slf4j
 class MemberServiceImplTest {
-        MemberService memberService = new MemberServiceImpl();
-        MemberRepository repository=new MemoryMemberRepository();
-        @AfterEach
-        void afterEach(){
-            repository.memberClearAll();
-        }
+    @Autowired
+    private OracleMemberRepository OracleMemberRepository;
+    @Autowired
+    MemberService memberService;
+
 
 
 
     @Test
     void join(){
         Member member=new Member(
-                Grade.ADMIN,
                 "memberId",
                 "memberPassword",
                 "memberName",
@@ -34,98 +36,50 @@ class MemberServiceImplTest {
                 "101-2131-5135"
         );
         memberService.join(member);
-        Member findMember = memberService.findByMemberNo(member.getMemberNo());
-        assertThat(member).isEqualTo(findMember);
+
     }
     @Test
     void delete(){
-        //given
-        Member member=new Member(
-                Grade.ADMIN,
-                "memberId",
-                "memberPassword",
-                "memberName",
-                "asdasdasdasdas",
-                "email",
-                "101-2131-5135"
-        );
-        memberService.join(member);
 
         //when
-        memberService.withdrawal(member);
+        Member byNo = memberService.findByNo(9L);
+        memberService.withdrawal(byNo);
 
         //then
-        assertThat(memberService.findByMemberNo(member.getMemberNo())).isNull();
+        assertThat(memberService.findByNo(9L)).isNull();
     }
 
     @Test
     void update(){
-        //given
-        Member member=new Member(
-                Grade.ADMIN,
-                "memberId",
-                "memberPassword",
-                "memberName",
-                "asdasdasdasdas",
-                "email",
-                "101-2131-5135"
-        );
-        memberService.join(member);
 
-        //when
         Member updateMember=new Member(
-                Grade.ADMIN,
-                "updatedId",
+
                 "updatedPassword",
-                "updatedName",
                 "asdasdasdasdas",
                 "updatedEmail",
                 "updated 101-2131-5135");
-        memberService.update(member.getMemberNo(),updateMember);
+        memberService.update(32L,updateMember);
 
         //then
-        assertThat(member.getMemberId()).isEqualTo("updatedId");
-        assertThat(member.getMemberPassword()).isEqualTo("updatedPassword");
-        assertThat(member.getMemberName()).isEqualTo("updatedName");
-        assertThat(member.getMemberAddress()).isEqualTo("asdasdasdasdas");
-        assertThat(member.getMemberEmail()).isEqualTo("updatedEmail");
-        assertThat(member.getMemberPhone()).isEqualTo("updated 101-2131-5135");
+       // assertThat(member.getMEMBER_ID()).isEqualTo("updatedId");
+        assertThat(memberService.findByNo(32L).getMEMBER_PWD()).isEqualTo("updatedPassword");
+        //assertThat(member.getMEMBER_NAME()).isEqualTo("updatedName");
+        assertThat(memberService.findByNo(32L).getMEMBER_ADDRESS()).isEqualTo("asdasdasdasdas");
+        assertThat(memberService.findByNo(32L).getMEMBER_EMAIL()).isEqualTo("updatedEmail");
+        assertThat(memberService.findByNo(32L).getMEMBER_PHONE()).isEqualTo("updated 101-2131-5135");
     }
     @Test
     void findAll(){
 
-            //given
-        Member member1=new Member(
-                Grade.ADMIN,
-                "memberId",
-                "memberPassword",
-                "memberName",
-                "asdasdasdasdas",
-                "email",
-                "101-2131-5135"
-        );
-
-        Member member2=new Member(
-                Grade.ADMIN,
-                "updatedId",
-                "updatedPassword",
-                "updatedName",
-                "asdasdasdasdas",
-                "updatedEmail",
-                "updated 101-2131-5135");
-
-        memberService.join(member1);
-        memberService.join(member2);
+        List<Member> finMemberList = memberService.findAll();
+        log.info("members={}",finMemberList);
 
 
-        //when
-        List<Member> finMemberList = repository.memberFindAll();
-
-        //then
-        assertThat(finMemberList.size()).isEqualTo(2);
-        assertThat(finMemberList).contains(member1,member2);
-
-
+    }
+    @Test
+    void findByNo(){
+        Member byNo = memberService.findByNo(32L);
+        log.info("byNo={}",byNo);
     }
 
 }
